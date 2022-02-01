@@ -62,8 +62,6 @@ function doMathFn(int) {
   }
 }
 
-
-
 function handleBufferNumber(number) {
   buffer === '0' ? (buffer = number) : (buffer += number);
 }
