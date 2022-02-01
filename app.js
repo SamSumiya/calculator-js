@@ -25,6 +25,10 @@ function handleSymbol(symbol) {
       buffer = currentRunningSum 
       currentRunningSum = 0
       break
+    case '←': 
+      if (buffer.length <= 1) buffer = '0'
+      buffer = buffer.slice(0, -1)
+      break
     case '+':
     case '-':
     case '*':
