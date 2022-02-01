@@ -1,6 +1,6 @@
 let currentRunningSum = 0;
 let buffer = '0';
-let previousSymbol;
+let previousSymbol = null;
 
 const screen = document.querySelector('.screen');
 
@@ -16,8 +16,15 @@ function buttonClick(clickedButton) {
 function handleSymbol(symbol) {
   switch (symbol) {
     case 'C':
-      (buffer = '0'), (currentRunningSum = 0);
+      buffer = '0', currentRunningSum = 0
       break;
+    case '=': 
+      if (previousSymbol === null) return 
+      doMathFn(+buffer)
+      previousSymbol = null
+      buffer = currentRunningSum 
+      currentRunningSum = 0
+      break
     case '+':
     case '-':
     case '*':
@@ -28,27 +35,26 @@ function handleSymbol(symbol) {
 }
 
 function handleMath(symbol) {
-  if (currentRunningSum === '0') return;
-
+  if (buffer === '0') return;
   const intBuffer = +buffer;
-  if (intBuffer === 0) {
+  if (currentRunningSum === 0) {
     currentRunningSum = intBuffer;
   } else {
     doMathFn(intBuffer);
   }
   previousSymbol = symbol;
-  buffer = 0;
+  buffer = '0';
 }
 
-function doMathFn(number) {
+function doMathFn(int) {
   if (previousSymbol === '+') {
-    currentRunningSum += number;
+    currentRunningSum += int;
   } else if (previousSymbol === '-') {
-    currentRunningSum -= number;
+    currentRunningSum -= int;
   } else if (previousSymbol === '*') {
-    currentRunningSum *= number;
+    currentRunningSum *= int;
   } else if (previousSymbol === '/') {
-    currentRunningSum /= number;
+    currentRunningSum /= int;
   }
 }
 
