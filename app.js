@@ -10,7 +10,7 @@ function buttonClick(clickedButton) {
   } else {
     handleBufferNumber(clickedButton);
   }
-  screen.innerText = buffer;
+  rerender();
 }
 
 function handleSymbol(symbol) {
@@ -27,7 +27,7 @@ function handleSymbol(symbol) {
       break
     case '←': 
       if (buffer.length <= 1) buffer = '0'
-      buffer = buffer.slice(0, -1)
+      buffer = buffer.substring(0, buffer.length - 1)
       break
     case '+':
     case '-':
@@ -66,6 +66,10 @@ function doMathFn(int) {
 
 function handleBufferNumber(number) {
   buffer === '0' ? (buffer = number) : (buffer += number);
+}
+
+function rerender() {
+  screen.innerText = buffer
 }
 
 function init() {
